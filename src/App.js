@@ -1,37 +1,28 @@
+import React, { useState } from "react";
+import UserList from "./componets/UserList";
+import UserDetails from "./componets/UserDetails";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import './App.css';
-import axios from 'axios';
-import {useEffect, useState} from "react";
+const App = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
 
-function App() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/api/users');
-      setUsers(response.data);
-
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }
+  const handleSelectUser = (user) => {
+    setSelectedUser(user);
+  };
 
   return (
-    <div className="App">
-      {
-        users.map(user => (
-            <div key={user.id}>
-
-            </div>
-        ))
-      }
+    <div className="container mt-4">
+      <div className="row mt-5">
+        <div className="col-md-4"></div>
+        <div className="col-md-4">
+          <UserList onSelectUser={handleSelectUser} />
+        </div>
+        <div className="col-md-4">
+          <UserDetails user={selectedUser} />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
