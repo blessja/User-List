@@ -7,14 +7,16 @@ const UserDetails = ({ user }) => {
   }
 
   return (
-    <div className="card p-4 sticky-top" mt-5>
-      <img
-        src={user.avatar}
-        alt={user.profile.firstName}
-        className="card-img-top rounded-circle"
-        width="60"
-        height="60"
-      />
+    <div className="card p-4 sticky-top">
+      <div className="text-center mb-3">
+        <img
+          src={user.avatar}
+          alt={user.profile.firstName}
+          className="rounded-circle"
+          width="100"
+          height="100"
+        />
+      </div>
       <div className="card-body">
         <h5 className="card-title">
           {user.profile.firstName} {user.profile.lastName}
