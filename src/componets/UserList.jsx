@@ -10,7 +10,9 @@ const UserList = ({ onSelectUser }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("https://invalid-url.com/users");
+        const response = await fetch(
+          "https://602e7c2c4410730017c50b9d.mockapi.io/users"
+        );
         if (!response.ok) {
           throw new Error("No data to display.");
         }
