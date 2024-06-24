@@ -5,17 +5,19 @@ import Spinner from "./Spinner";
 const UserList = ({ onSelectUser }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(
-          "https://602e7c2c4410730017c50b9d.mockapi.io/users"
-        );
+        const response = await fetch("https://invalid-url.com/users");
+        if (!response.ok) {
+          throw new Error("No data to display.");
+        }
         const data = await response.json();
         setUsers(data);
       } catch (error) {
-        console.error("Error fetching users:", error);
+        setError("No data to display.");
       } finally {
         setLoading(false);
       }
@@ -33,6 +35,22 @@ const UserList = ({ onSelectUser }) => {
         <div className="spinner">
           {loading && <Spinner loading={loading} />}
         </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {error}
+      </div>
+    );
+  }
+
+  if (users.length === 0) {
+    return (
+      <div className="alert alert-info" role="alert">
+        No users found.
       </div>
     );
   }
